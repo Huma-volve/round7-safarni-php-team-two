@@ -1,0 +1,21 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\Hotel;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+
+class HotelSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+          Hotel::factory()
+            ->count(20) // 10 فنادق
+            ->hasRooms(12) // كل فندق 3 غرف
+            ->create();
+    }
+}

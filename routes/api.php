@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HotelController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
@@ -21,6 +22,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [LoginController::class, 'logout']);
      Route::get('profile', [ProfileController::class, 'profile']);
     Route::post('update/profile', [ProfileController::class, 'updateProfile']);
+});
 
    
+
+Route::prefix('hotels')->group(function () {
+    Route::get('/', [HotelController::class, 'index']);
+    Route::get('/{id}', [HotelController::class, 'show']);
+    Route::get('/{id}/nearby', [HotelController::class, 'nearby']);
 });
