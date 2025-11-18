@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -10,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Mail;
 use Laravel\Socialite\Facades\Socialite;
+use App\Mail\sendOtpMail;
 
 
 
@@ -30,11 +32,12 @@ class LoginController extends Controller
         'otp_expires_at' => now()->addMinutes(15),
     ]);
 
-    Mail::raw("Your OTP verification code is: $otp", function($mail) use ($user) {
-        $mail->to($user->email)
-             ->subject("Verify Your Email");
-    });
+    // Mail::raw("Your OTP verification code is: $otp", function($mail) use ($user) {
+    //     $mail->to($user->email)
+    //          ->subject("Verify Your Email");
+    // });
 
+       Mail::to($request->email)->send(new sendOtpMail($otp,$user));
     return response()->json([
 
         'message' => 'Registered successfully. Please verify your email with the OTP sent.',
@@ -76,12 +79,12 @@ public function verifyOtp(Request $request)
 
 public function resendOtp(Request $request)
     {
-        
+
         $request->validate([
-            'email' => 'required|email', 
+            'email' => 'required|email',
         ]);
 
-        
+
         $user = User::where('email', $request->email)->first();
         if (!$user) {
             return response()->json([
@@ -96,19 +99,16 @@ public function resendOtp(Request $request)
             'otp_expires_at' => now()->addMinutes(15)
         ]);
 
-        Mail::raw("Your OTP is: $otp", function ($message) use ($user) {
-            $message->to($user->email)->subject('Your OTP Code');
-        });
-
+         Mail::to($request->email)->send(new sendOtpMail($otp,$user));
         return response()->json([
             'message' => 'OTP resent successfully',
-            'otp_code' => $otp 
+            'otp_code' => $otp
         ]);
     }
 
 
 
-   public function login(Request $request)
+   public function login(LoginRequest $request)
 {
     $request->validate([
         'email' => 'required|email',
@@ -154,11 +154,7 @@ public function forgotPassword(Request $request)
     $user->otp_expires_at = now()->addMinutes(15);
     $user->save();
 
-    Mail::raw("Your password reset code is: $otp", function ($message) use ($user) {
-        $message->to($user->email)
-                ->subject('Password Reset OTP');
-    });
-
+     Mail::to($request->email)->send(new sendOtpMail($otp,$user));
     return response()->json([
         'message' => 'OTP sent to your email',
         'email'   => $user->email
@@ -215,7 +211,7 @@ public function googleCallback()
 {
     try {
         $googleUser = Socialite::driver('google')->stateless()->user();
-    } 
+    }
     catch (\Exception $e) {
         return response()->json(['error' => 'Unable to login with Google'], 400);
     }
@@ -227,7 +223,7 @@ public function googleCallback()
             'name'     => $googleUser->getName(),
             'email'    => $googleUser->getEmail(),
             'google_id'=> $googleUser->getId(),
-            'password' => Hash::make(uniqid()), 
+            'password' => Hash::make(uniqid()),
             'email_verified_at' => now(),
         ]);
     }
