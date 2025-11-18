@@ -1,31 +1,29 @@
 <?php
-
 namespace Database\Factories;
 
+use App\Models\Hotel;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Hotel>
- */
+
 class HotelFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    // public $name;
+    protected $model = Hotel::class;
+
     public function definition(): array
     {
+        $name = $this->faker->company;
+        $lat = $this->faker->latitude;
+        $lng = $this->faker->longitude;
 
-     $name    = $this->faker->company;
         return [
             'name' => $name,
-            'slug' => Str::slug($name) . '-' . $this->faker->unique()->numberBetween(1, 1000),
+            // بديل الـ unique عشان ما يحصل overflow
+            'slug' => Str::slug($name) . '-' . $this->faker->randomNumber(5, true),
             'description' => $this->faker->paragraph,
             'address' => $this->faker->address,
-            'latitude' => $this->faker->latitude,
-            'longitude' => $this->faker->longitude,
+            'latitude' => $lat,
+            'longitude' => $lng,
             'image' => $this->faker->imageUrl(800, 600, 'city'),
             'amenities' => json_encode(['wifi','parking','pool']),
             'rating' => $this->faker->randomFloat(2, 3, 5),
@@ -40,4 +38,20 @@ class HotelFactory extends Factory
             ]),
         ];
     }
+
+    // بعد الإنشاء مباشرة، نحدث عمود location
+    public function configure()
+    {
+        return $this->afterCreating(function (Hotel $hotel) {
+            $lat = $hotel->latitude;
+            $lng = $hotel->longitude;
+            $hotel->update([
+                'location' => DB::raw("POINT($lng, $lat)")
+            ]);
+        });
+    }
 }
+
+
+
+ 
