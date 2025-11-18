@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HotelController;
+use App\Http\Controllers\RoomController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
@@ -26,8 +27,36 @@ Route::middleware('auth:sanctum')->group(function () {
 
    
 
-Route::prefix('hotels')->group(function () {
-    Route::get('/', [HotelController::class, 'index']);
-    Route::get('/{id}', [HotelController::class, 'show']);
-    Route::get('/{id}/nearby', [HotelController::class, 'nearby']);
-});
+// Route::middleware('auth:sanctum')->group(function () {
+
+
+
+    /*Hotels*/
+
+    Route::get('hotels', [HotelController::class, 'index']);/*✅ all  hotels*/
+
+    Route::get('single-hotels/{id}', [HotelController::class, 'show']);    /*✅ show single  hotels*/
+
+    Route::get('hotel-rooms/{id}/rooms', [HotelController::class, 'rooms']);  /*✅ show single  room in the hotel*/
+
+    Route::get('hotels-nearby', [HotelController::class, 'nearby']);    /* ✅ nearby  hotels */
+
+    Route::post('hotels-actions', [HotelController::class, 'store']); // ✅ add new hotel     
+
+    Route::put('hotels-actions/{hotel}', [HotelController::class, 'update']); // ✅ update hotel  
+
+    Route::delete('hotels-actions/{hotel}', [HotelController::class, 'destroy']);// ✅ delete hotel
+    /*Rooms*/
+
+    Route::post('hotels/{hotel}/rooms', [RoomController::class, 'store']); // ✅ add new Room   
+
+    Route::put('hotels/{hotel}/rooms/{room}', [RoomController::class, 'update']);// ✅  update Room   
+
+    Route::get('hotels/{hotel}/rooms/{room}', [RoomController::class, 'show']);// ✅  show Room
+
+    Route::delete('hotels/{hotel}/rooms/{room}', [RoomController::class, 'destroy']);// ✅  delete Room
+
+    Route::get('hotels/{hotel}/rooms', [RoomController::class, 'index']);// ✅  All Rooms in the Hotel   
+
+
+// });
