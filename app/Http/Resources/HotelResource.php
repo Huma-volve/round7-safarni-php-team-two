@@ -34,3 +34,8 @@ class HotelResource extends JsonResource
         ];
     }
 }
+
+/**
+  
+ 
+ */

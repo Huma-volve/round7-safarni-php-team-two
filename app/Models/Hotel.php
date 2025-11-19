@@ -46,4 +46,5 @@ public function getLongitudeAttribute()
     $result = DB::selectOne('SELECT ST_Y(location) as lng FROM hotels WHERE id = ?', [$this->id]);
     return $result?->lng;
 }
+
 }

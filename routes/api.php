@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\HotelBookingController;
 use App\Http\Controllers\HotelController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\RoomController;
+use App\Models\Booking;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
@@ -23,6 +26,18 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [LoginController::class, 'logout']);
      Route::get('profile', [ProfileController::class, 'profile']);
     Route::post('update/profile', [ProfileController::class, 'updateProfile']);
+<<<<<<< Updated upstream
+=======
+});
+
+   
+
+Route::middleware('auth:sanctum')->group(function () {
+
+
+
+    /*Hotels*/
+>>>>>>> Stashed changes
 
     Route::get('hotels', [HotelController::class, 'index']);/*✅ all  hotels*/
 
@@ -53,3 +68,39 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
 
+<<<<<<< Updated upstream
+=======
+     Route::post('/hotels/bookings', [HotelBookingController::class, 'store']);
+
+Route::post('/payment/pay', [PaymentController::class, 'pay'])->name('payment.pay');
+
+
+});
+
+// Route::get('/payment/success/{bookingId}', [PaymentController::class, 'success'])
+//     ->name('payment.success');
+
+// Route::get('/payment/cancel/{booking}', [PaymentController::class, 'cancel'])
+//     ->name('payment.cancel');
+
+Route::get('/payment/success/{booking}', function (Booking $booking) {
+    // تحديث حالة الحجز
+    $booking->update(['payment_status' => 'paid']);
+
+    // رجع رسالة JSON بدل صفحة
+    return response()->json([
+        'success' => true,
+        'message' => 'Payment completed successfully!',
+        'booking_id' => $booking->id,
+    ]);
+})->name('payment.success');
+
+Route::get('/payment/cancel/{booking}', function (Booking $booking) {
+    // ممكن تحدد حالة الحجز كملغى أو pending
+    return response()->json([
+        'success' => false,
+        'message' => 'Payment was cancelled by the user.',
+        'booking_id' => $booking->id,
+    ]);
+})->name('payment.cancel');
+>>>>>>> Stashed changes

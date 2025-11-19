@@ -17,7 +17,7 @@ use App\Mail\sendOtpMail;
 
 class LoginController extends Controller
 {
-   public function register(RegisterRequest $request)
+   public function register(Request $request)
 {
     $user = User::create([
         'name'    => $request->name,
