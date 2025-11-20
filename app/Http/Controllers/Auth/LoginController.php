@@ -17,7 +17,7 @@ use App\Mail\sendOtpMail;
 
 class LoginController extends Controller
 {
-   public function register(RegisterRequest $request)
+   public function register(Request $request)
 {
     $user = User::create([
         'name'    => $request->name,
@@ -47,7 +47,7 @@ class LoginController extends Controller
 
 
 
-public function verifyOtp(Request $request)
+public function verifyOtp(RegisterRequest $request)
 {
     $request->validate([
         'email' => 'required|email',

@@ -72,6 +72,11 @@ class Hotel extends Model implements HasMedia
     {
         return $this->hasMany(Room::class);
     }
+    public function reviews()
+    {
+        return $this->morphMany(Review::class, 'reviewable')->where('status', 'approved');
+    }
+
     protected $appends = ['latitude', 'longitude'];
 
     public function getLatitudeAttribute()
@@ -85,4 +90,5 @@ class Hotel extends Model implements HasMedia
         $result = DB::selectOne('SELECT ST_Y(location) as lng FROM hotels WHERE id = ?', [$this->id]);
         return $result?->lng;
     }
+
 }

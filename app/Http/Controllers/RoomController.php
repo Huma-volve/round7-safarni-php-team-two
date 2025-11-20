@@ -26,7 +26,7 @@ public function index(Hotel $hotel)
         $validated = $request->validated();
 
         // تحويل الحقول JSON لو موجودة
-        foreach (['photos','occupancy','seasonal_pricing','availability_calendar','extras'] as $jsonField) {
+        foreach (['photos','offer','availability_calendar'] as $jsonField) {
             if (isset($validated[$jsonField])) {
                 $validated[$jsonField] = json_encode($validated[$jsonField]);
             }
