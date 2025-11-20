@@ -1,6 +1,14 @@
 <?php
 
+
+use App\Http\Controllers\Api\ProfileController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Flight\AirportController;
+use App\Http\Controllers\Flight\CarrierController;
+use App\Http\Controllers\Flight\FlightController;
+
 use App\Http\Controllers\HotelBookingController;
+
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ReviewController;
@@ -8,8 +16,27 @@ use App\Http\Controllers\RoomController;
 use App\Models\Booking;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Api\ProfileController;
+
+use App\Http\Controllers\RouteMessage;
+Route::get('/user', function (Request $request) {
+    return $request->user();
+})->middleware('auth:sanctum');
+Route::prefix('hotels')->group(function () {
+    Route::get('/', [HotelController::class, 'index']);
+    Route::get('/{id}', [HotelController::class, 'show']);
+    Route::get('/{id}/nearby', [HotelController::class, 'nearby']);
+});
+$error=fn($message)=>response()->json($message,422);
+Route::apiResource('airports', AirportController::class)->missing(function (){
+    return response()->json('airports not found');
+});
+Route::apiResource('carrier', CarrierController::class)->missing(function ()use ($error){
+    return $error("carrier not found");
+});
+Route::apiResource('flights', FlightController::class)->missing(function ()use ($error){
+    return $error("flight not found");
+});
+
 
 Route::post('register', [LoginController::class, 'register']);
 Route::post('otp/verify', [LoginController::class, 'verifyOtp']);
@@ -27,17 +54,17 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [LoginController::class, 'logout']);
      Route::get('profile', [ProfileController::class, 'profile']);
     Route::post('update/profile', [ProfileController::class, 'updateProfile']);
- 
+
 });
 
-   
+
 
 Route::middleware('auth:sanctum')->group(function () {
 
 
 
     /*Hotels*/
- 
+
 
     Route::get('hotels', [HotelController::class, 'index']);/*✅ all  hotels*/
 
@@ -73,7 +100,7 @@ Route::post('/payment/pay', [PaymentController::class, 'pay'])->name('payment.pa
 //         'payment_status' => 'paid' ,
 //      'status' => 'completed'
 //     ]);
-    
+
 //     // رجع رسالة JSON بدل صفحة
 //     return response()->json([
 //         'success' => true,
@@ -92,7 +119,7 @@ Route::get('/payment/cancel/{booking}', function (Booking $booking) {
         'booking_id' => $booking->id,
     ]);
 })->name('payment.cancel');
- 
+
 Route::post('/reviews', [ReviewController::class, 'store']);
 
 
@@ -102,7 +129,8 @@ Route::post('/reviews', [ReviewController::class, 'store']);
 
 Route::get('/payment/success/{booking}', [PaymentController::class, 'success'])->name('payment.success');
 
- 
+
+
 
 
 

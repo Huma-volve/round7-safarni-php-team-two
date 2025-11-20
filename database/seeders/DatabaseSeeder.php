@@ -17,10 +17,13 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-    
+
        $this->call([
+
+        AirportSeeder::class,
         HotelSeeder::class,
         UsersSeeder::class
+
        ]);
     }
 }

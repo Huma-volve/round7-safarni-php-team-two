@@ -2,24 +2,28 @@
 
 namespace App\Models;
 
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use App\Models\Payment;
 use App\Models\Room;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+
+
 class Booking extends Model
 {
     use HasFactory;
+    /** @use HasFactory<\Database\Factories\BookingFactory> */
 
     protected $fillable = [
-        'user_id', 
+        'user_id',
         'room_id',
         'check_in',
         'check_out',
-        'category', 
-        'item_id', 
-        'status', 
-        'total_price', 
+        'category',
+        'item_id',
+        'status',
+        'total_price',
         'payment_status'
     ];
 
@@ -29,7 +33,6 @@ class Booking extends Model
         'check_out' => 'date',
     ];
 
- 
 
     public function user()
     {
@@ -45,4 +48,5 @@ class Booking extends Model
     {
         return $this->hasOne(Payment::class);
     }
+
 }
