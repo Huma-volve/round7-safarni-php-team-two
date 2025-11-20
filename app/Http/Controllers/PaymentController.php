@@ -93,7 +93,7 @@ public function success(Request $request,Booking $booking)
     // ⬅️ تحديث حالة الحجز
     $booking->update([
         'payment_status' => 'paid',
-        'status'         => 'completed'
+        'status'         => 'confirmed'
     ]);
 
     return response()->json([
