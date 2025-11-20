@@ -14,6 +14,11 @@ class FlightFareResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'flight_id'=>$this->flight_id,
+            'seat_label'=>$this->seat_label,
+            'class'=>$this->class,
+            'is_available'=>$this->is_available
+        ];
     }
 }

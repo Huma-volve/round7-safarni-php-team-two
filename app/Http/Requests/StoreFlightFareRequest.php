@@ -11,7 +11,7 @@ class StoreFlightFareRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,10 @@ class StoreFlightFareRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'flight_id'=>'required|integer',
+            'seat_label'=>'required',
+            'class'=>'required',
+            'is_available'=>'required',
         ];
     }
 }

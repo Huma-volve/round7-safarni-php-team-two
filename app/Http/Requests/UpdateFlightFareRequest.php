@@ -11,7 +11,7 @@ class UpdateFlightFareRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,10 @@ class UpdateFlightFareRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'flight_id'=>'sometimes|integer',
+            'seat_label'=>'sometimes',
+            'class'=>'sometimes',
+            'is_available'=>'sometimes',
         ];
     }
 }

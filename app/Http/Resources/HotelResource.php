@@ -14,7 +14,7 @@ class HotelResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-          return [
+        return [
             'id' => $this->id,
             'name' => $this->name,
             'slug' => $this->slug,
@@ -22,12 +22,20 @@ class HotelResource extends JsonResource
             'address' => $this->address,
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
-            'images' => $this->gallery ,
+            'images' => $this->image,
             'amenities' => $this->amenities ? json_decode($this->amenities) : [],
+
             'rating' => $this->rating,
             'policies' => $this->policies ? json_decode($this->policies) : [],
+
             'contact_info' => $this->contact_info ? json_decode($this->contact_info) : [],
+
             'rooms' => RoomResource::collection($this->whenLoaded('rooms')),
         ];
     }
 }
+
+/**
+  
+ 
+ */
