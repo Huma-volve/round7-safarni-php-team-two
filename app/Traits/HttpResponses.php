@@ -1,0 +1,26 @@
+<?php
+
+namespace App\Traits;
+
+trait HttpResponses {
+
+    // دالة النجاح الموحدة
+    protected function success($data, string $message = null, int $code = 200)
+    {
+        return response()->json([
+            'status' => 'Request was successful.',
+            'message' => $message,
+            'data' => $data
+        ], $code);
+    }
+
+    // دالة الخطأ الموحدة
+    protected function error($data, string $message = null, int $code)
+    {
+        return response()->json([
+            'status' => 'Error has occurred...',
+            'message' => $message,
+            'data' => $data
+        ], $code);
+    }
+}
