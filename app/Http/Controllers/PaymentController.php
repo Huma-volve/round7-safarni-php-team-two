@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PaymentRequest;
 use App\Models\Booking;
+use App\Models\Payment;
 use App\Services\PaymentService;
-use Illuminate\Http\Request;
+ use Illuminate\Http\Request;
+
+ 
 
 class PaymentController extends Controller
 {
@@ -49,7 +52,60 @@ public function pay(PaymentRequest $request)
     ], 500);
 }
 
- 
+public function success(Request $request,Booking $booking)
+{
+    $token = $request->query('token'); // important!
+
+    if (!$token) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Missing PayPal token.'
+        ], 400);
+    }
+
+    $paymentService = app(PaymentService::class);
+    $response = $paymentService->capturePayment($token);
+
+    if (is_array($response) && isset($response['error'])) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Capture failed: '.$response['error'],
+        ], 500);
+    }
+
+    // استخراج بيانات الدفع من PayPal response
+    $transactionId = $response->result->id ?? null;
+    $status = $response->result->status ?? null;
+    $amount = $response->result->purchase_units[0]->payments->captures[0]->amount->value ?? 0;
+    $currency = $response->result->purchase_units[0]->payments->captures[0]->amount->currency_code ?? 'USD';
+
+    // ⬅️ حفظ الدفع في جدول payments
+    Payment::create([
+        'booking_id'     => $booking->id,
+        'amount'         => $amount,
+        'currency'       => $currency,
+        'gateway'        => 'paypal',
+        'status'         => $status,
+        'transaction_id' => $transactionId,
+        'response_json'  => json_encode($response->result),
+    ]);
+
+    // ⬅️ تحديث حالة الحجز
+    $booking->update([
+        'payment_status' => 'paid',
+        'status'         => 'completed'
+    ]);
+
+    return response()->json([
+        'success' => true,
+        'message' => 'Payment captured and saved successfully!',
+        'transaction_id' => $transactionId,
+    ]);
+}
+public function cancel(Request $request)
+{
+
+}
 
 
 

@@ -37,4 +37,9 @@ public function bookings()
 {
     return $this->hasMany(Booking::class);
 }
+public function reviews()
+{
+    return $this->morphMany(Review::class, 'reviewable')->where('status', 'approved');
+}
+
 }

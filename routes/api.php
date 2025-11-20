@@ -3,6 +3,7 @@
 use App\Http\Controllers\HotelBookingController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\RoomController;
 use App\Models\Booking;
 use Illuminate\Http\Request;
@@ -26,8 +27,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [LoginController::class, 'logout']);
      Route::get('profile', [ProfileController::class, 'profile']);
     Route::post('update/profile', [ProfileController::class, 'updateProfile']);
-<<<<<<< Updated upstream
-=======
+ 
 });
 
    
@@ -37,7 +37,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
     /*Hotels*/
->>>>>>> Stashed changes
+ 
 
     Route::get('hotels', [HotelController::class, 'index']);/*✅ all  hotels*/
 
@@ -63,37 +63,26 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('hotels/{hotel}/rooms/{room}', [RoomController::class, 'destroy']);// ✅  delete Room
 
     Route::get('hotels/{hotel}/rooms', [RoomController::class, 'index']);// ✅  All Rooms in the Hotel
-});
-
-
-
-
-<<<<<<< Updated upstream
-=======
-     Route::post('/hotels/bookings', [HotelBookingController::class, 'store']);
+Route::post('/hotels/bookings', [HotelBookingController::class, 'store']);
 
 Route::post('/payment/pay', [PaymentController::class, 'pay'])->name('payment.pay');
 
+// Route::get('/payment/success/{booking}', function (Booking $booking) {
+//     // تحديث حالة الحجز
+//     $booking->update([
+//         'payment_status' => 'paid' ,
+//      'status' => 'completed'
+//     ]);
+    
+//     // رجع رسالة JSON بدل صفحة
+//     return response()->json([
+//         'success' => true,
+//         'message' => 'Payment completed successfully!',
+//         'booking_id' => $booking->id,
+//     ]);
+// })->name('payment.success');
 
-});
 
-// Route::get('/payment/success/{bookingId}', [PaymentController::class, 'success'])
-//     ->name('payment.success');
-
-// Route::get('/payment/cancel/{booking}', [PaymentController::class, 'cancel'])
-//     ->name('payment.cancel');
-
-Route::get('/payment/success/{booking}', function (Booking $booking) {
-    // تحديث حالة الحجز
-    $booking->update(['payment_status' => 'paid']);
-
-    // رجع رسالة JSON بدل صفحة
-    return response()->json([
-        'success' => true,
-        'message' => 'Payment completed successfully!',
-        'booking_id' => $booking->id,
-    ]);
-})->name('payment.success');
 
 Route::get('/payment/cancel/{booking}', function (Booking $booking) {
     // ممكن تحدد حالة الحجز كملغى أو pending
@@ -103,4 +92,17 @@ Route::get('/payment/cancel/{booking}', function (Booking $booking) {
         'booking_id' => $booking->id,
     ]);
 })->name('payment.cancel');
->>>>>>> Stashed changes
+ 
+Route::post('/reviews', [ReviewController::class, 'store']);
+
+
+});
+
+
+
+Route::get('/payment/success/{booking}', [PaymentController::class, 'success'])->name('payment.success');
+
+ 
+
+
+
