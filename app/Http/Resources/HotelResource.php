@@ -22,7 +22,7 @@ class HotelResource extends JsonResource
             'address' => $this->address,
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
-            'images' => $this->image,
+            //'images' => $this->image,
             'amenities' => $this->amenities ? json_decode($this->amenities) : [],
 
             'rating' => $this->rating,
@@ -31,6 +31,10 @@ class HotelResource extends JsonResource
             'contact_info' => $this->contact_info ? json_decode($this->contact_info) : [],
 
             'rooms' => RoomResource::collection($this->whenLoaded('rooms')),
+            'media' => [
+                'main' => $this->mainMediaUrl('hotel_image', 'thumb_webp'),
+                'gallery' => $this->mediaCollectionData('hotel_gallery', 'thumb_webp'),
+            ],
         ];
     }
 }
