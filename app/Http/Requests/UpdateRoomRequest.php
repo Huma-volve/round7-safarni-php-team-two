@@ -23,21 +23,15 @@ class UpdateRoomRequest extends FormRequest
     {
         return [
             'name' => 'sometimes|string|max:255',
-        'description' => 'sometimes|string',
-        'photos' => 'sometimes|array',
-        'photos.*' => 'url',
-        'main_image' => 'sometimes|url',
-        'occupancy' => 'sometimes|array',
-        'occupancy.adults' => 'sometimes|integer|min:1',
-        'occupancy.children' => 'sometimes|integer|min:0',
-        'bed_type' => 'sometimes|string|max:100',
-        'room_area' => 'sometimes|numeric|min:0',
-        'price_per_night' => 'sometimes|numeric|min:0',
-        'seasonal_pricing' => 'sometimes|array',
-        'availability_calendar' => 'sometimes|array',
-        'refundable' => 'sometimes|boolean',
-        'extras' => 'sometimes|array',
-        'extras.*' => 'string|max:255',
+            'description' => 'sometimes|string',
+            'photos' => 'sometimes|array',
+            'photos.*' => 'url',
+            'main_image' => 'sometimes|url',
+            'bed_number' => 'nullable|integer',
+            'room_area' => 'sometimes|numeric|min:0',
+            'price_per_night' => 'sometimes|numeric|min:0',
+            'availability_calendar' => 'sometimes|array',
+
         ];
     }
 }

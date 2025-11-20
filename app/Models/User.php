@@ -58,4 +58,8 @@ class User extends Authenticatable
             'otp_expires_at' => 'datetime',
         ];
     }
+  public function bookings()
+{
+    return $this->hasMany(Booking::class);
+}
 }

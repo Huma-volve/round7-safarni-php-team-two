@@ -33,6 +33,11 @@ class Hotel extends Model
 {
     return $this->hasMany(Room::class);
 }
+public function reviews()
+{
+    return $this->morphMany(Review::class, 'reviewable')->where('status', 'approved');
+}
+
 protected $appends = ['latitude', 'longitude'];
 
 public function getLatitudeAttribute()
@@ -46,4 +51,5 @@ public function getLongitudeAttribute()
     $result = DB::selectOne('SELECT ST_Y(location) as lng FROM hotels WHERE id = ?', [$this->id]);
     return $result?->lng;
 }
+
 }

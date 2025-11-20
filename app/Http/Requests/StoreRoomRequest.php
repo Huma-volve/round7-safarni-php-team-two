@@ -27,17 +27,11 @@ class StoreRoomRequest extends FormRequest
             'photos' => 'nullable|array',
             'photos.*' => 'url',
             'main_image' => 'nullable|url',
-            'occupancy' => 'nullable|array',
-            'occupancy.adults' => 'nullable|integer|min:1',
-            'occupancy.children' => 'nullable|integer|min:0',
-            'bed_type' => 'nullable|string|max:100',
+            'bed_number' => 'nullable|integer',
             'room_area' => 'nullable|numeric|min:0',
             'price_per_night' => 'required|numeric|min:0',
-            'seasonal_pricing' => 'nullable|array',
             'availability_calendar' => 'nullable|array',
-            'refundable' => 'nullable|boolean',
-            'extras' => 'nullable|array',
-            'extras.*' => 'string|max:255',
+         
         ];
     }
 }
