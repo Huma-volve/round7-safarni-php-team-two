@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreFlightFareRequest extends FormRequest
+class LoginRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,10 +22,17 @@ class StoreFlightFareRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'flight_id'=>'required|integer',
-            'seat_label'=>'required',
-            'class'=>'required',
-            'is_available'=>'required',
+            'email' => 'required|string|email',
+            'password' => 'required|string',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'email.required' => 'Email is required',
+            'email.email' => 'Email must be a valid email address',
+            'password.required' => 'Password is required',
         ];
     }
 }

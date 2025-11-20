@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreFlightFareRequest extends FormRequest
+class UpdateRoomRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,10 +22,16 @@ class StoreFlightFareRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'flight_id'=>'required|integer',
-            'seat_label'=>'required',
-            'class'=>'required',
-            'is_available'=>'required',
+            'name' => 'sometimes|string|max:255',
+            'description' => 'sometimes|string',
+            'photos' => 'sometimes|array',
+            'photos.*' => 'url',
+            'main_image' => 'sometimes|url',
+            'bed_number' => 'nullable|integer',
+            'room_area' => 'sometimes|numeric|min:0',
+            'price_per_night' => 'sometimes|numeric|min:0',
+            'availability_calendar' => 'sometimes|array',
+
         ];
     }
 }

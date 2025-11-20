@@ -32,7 +32,9 @@ class FlightFareController extends Controller
      */
     public function store(StoreFlightFareRequest $request)
     {
-        //
+        $Flight_Fare=FlightFare::create($request->validated());
+        return $this->success(new FlightFareResource($Flight_Fare),'flight fare returned successfully');
+
     }
 
     /**
@@ -56,7 +58,7 @@ class FlightFareController extends Controller
     public function update(UpdateFlightFareRequest $request, FlightFare $flightFare)
     {
         $flightFare->update($request->validated());
-        return $this->success($flightFare,);
+        return $this->success(new FlightFareResource($flightFare),"flight fare retrieved successfully");
     }
 
     /**
@@ -64,6 +66,7 @@ class FlightFareController extends Controller
      */
     public function destroy(FlightFare $flightFare)
     {
-        //
+       $flightFare->delete();
+       return $this->success(null,'flight fare deleted successfully');
     }
 }

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreFlightFareRequest extends FormRequest
+class PaymentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -19,13 +19,19 @@ class StoreFlightFareRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
+    public function rules()
     {
         return [
-            'flight_id'=>'required|integer',
-            'seat_label'=>'required',
-            'class'=>'required',
-            'is_available'=>'required',
+            'booking_id' => 'required|integer|exists:bookings,id',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'booking_id.required' => 'Booking ID مطلوب.',
+            'booking_id.integer' => 'Booking ID لازم يكون رقم.',
+            'booking_id.exists' => 'Booking ID غير موجود في النظام.',
         ];
     }
 }

@@ -20,14 +20,10 @@ class RoomResource extends JsonResource
             'description' => $this->description,
             'photos' => $this->photos ? json_decode($this->photos) : [],
             'main_image' => $this->main_image,
-            'occupancy' => $this->occupancy ? json_decode($this->occupancy) : [],
-            'bed_type' => $this->bed_type,
+            'bed_number' => $this->bed_number, //bead type 
             'room_area' => $this->room_area,
             'price_per_night' => $this->price_per_night,
-            'seasonal_pricing' => $this->seasonal_pricing ? json_decode($this->seasonal_pricing) : [],
             'availability_calendar' => $this->availability_calendar ? json_decode($this->availability_calendar) : [],
-            'refundable' => $this->refundable,
-            'extras' => $this->extras ? json_decode($this->extras) : [],
         ];
     }
 }

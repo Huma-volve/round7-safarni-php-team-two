@@ -17,5 +17,6 @@ class HotelSeeder extends Seeder
             ->count(20) // 10 فنادق
             ->hasRooms(12) // كل فندق 3 غرف
             ->create();
+            
     }
 }
