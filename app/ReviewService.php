@@ -18,7 +18,7 @@ class ReviewService
         return Booking::where('user_id', $userId)
             ->where('category', $reviewableType) 
             ->where('item_id', $reviewableId)
-            ->where('status', 'completed')
+            ->where('status', 'confirmed')
             ->exists();
     }
 }

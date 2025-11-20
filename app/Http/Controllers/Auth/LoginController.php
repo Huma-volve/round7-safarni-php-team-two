@@ -47,7 +47,7 @@ class LoginController extends Controller
 
 
 
-public function verifyOtp(Request $request)
+public function verifyOtp(RegisterRequest $request)
 {
     $request->validate([
         'email' => 'required|email',

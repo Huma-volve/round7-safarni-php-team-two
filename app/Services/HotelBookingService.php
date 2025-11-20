@@ -53,7 +53,7 @@ public function book(Room $room, $userId, $checkIn, $checkOut)
         'user_id' => $userId,
         'category' => 'hotel',
         'item_id' => $room->id,
-        'status' => 'confirmed',
+        'status' => 'pending',
         'total_price' => $total_price,
         'meta' => [
             'check_in' => $checkIn,

@@ -26,7 +26,7 @@ class ReviewController extends Controller
         if (!ReviewService::userCanReview($userId, $request->reviewable_type, $request->reviewable_id)) {
             return response()->json([
                 'success' => false,
-                'message' => 'You can only review items you have completed booking for.'
+                'message' => 'You can only review items you have confirmed booking for.'
             ], 403);
         }
 
