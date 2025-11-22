@@ -16,6 +16,7 @@ class Tour extends Model
         'rating',
         'image',
         'category_id',
+        'city',
         'location'
     ];
 

@@ -28,13 +28,14 @@ class Hotel extends Model implements HasMedia
         'amenities',
         'rating',
         'policies',
+        'city',
         'location',
         'contact_info',
         'category_id',
     ];
 
     protected $hidden = ['location'];
-    
+
     protected $casts = [
         'amenities'    => 'array',
         'policies'     => 'array',

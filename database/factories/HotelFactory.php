@@ -38,6 +38,7 @@ class HotelFactory extends Factory
                 'phone' => $this->faker->phoneNumber,
                 'email' => $this->faker->companyEmail
             ]),
+            'city' => $this->faker->city,
             'location' => DB::raw("ST_PointFromText('POINT($lat $lng)')"),
         ];
     }

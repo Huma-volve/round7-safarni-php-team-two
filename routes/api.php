@@ -64,6 +64,10 @@ Route::middleware('auth:sanctum')->group(function () {
     //Home
     Route::get('/home',[HomeController::class,'index']);
 
+    //Search Suggestions
+    Route::get('/search-suggestions',[HomeController::class,'suggestions']);
+    //Search Results
+    Route::get('/search',[HomeController::class,'search']);
     /*Hotels*/
 
     Route::get('hotels', [HotelController::class, 'index']);/*✅ all  hotels*/

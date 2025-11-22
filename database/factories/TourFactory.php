@@ -28,6 +28,7 @@ class TourFactory extends Factory
             'rating' => $this->faker->randomFloat(1, 1, 5),
             'image' => $this->faker->imageUrl(640, 480, 'travel', true),
             'category_id' => Category::where('name', 'tours')->first()->id,
+            'city' => $this->faker->city,
             'location' => DB::raw("ST_PointFromText('POINT($lat $lng)')"),
         ];
     }

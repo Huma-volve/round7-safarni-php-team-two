@@ -15,6 +15,7 @@ class Car extends Model
         'rating',
         'image',
         'category_id',
+        'city',
         'location'
     ];
 
