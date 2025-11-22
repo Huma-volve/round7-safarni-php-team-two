@@ -1,6 +1,6 @@
 <?php
 
-
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Flight\AirportController;
@@ -61,10 +61,10 @@ Route::middleware('auth:sanctum')->group(function () {
 
 Route::middleware('auth:sanctum')->group(function () {
 
-
+    //Home
+    Route::get('/home',[HomeController::class,'index']);
 
     /*Hotels*/
-
 
     Route::get('hotels', [HotelController::class, 'index']);/*✅ all  hotels*/
 

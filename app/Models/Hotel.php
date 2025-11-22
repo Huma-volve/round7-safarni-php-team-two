@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
-use App\Traits\HasMediaCollections;
+//use App\Traits\HasMediaCollections;
 use App\Traits\AddMedia;
 use Spatie\Image\Manipulations;
 
@@ -16,7 +16,7 @@ use Spatie\Image\Manipulations;
 
 class Hotel extends Model implements HasMedia
 {
-    use HasFactory, InteractsWithMedia, HasMediaCollections, AddMedia;
+    use HasFactory, InteractsWithMedia,AddMedia;
     protected $fillable = [
         'name',
         'slug',
@@ -29,27 +29,31 @@ class Hotel extends Model implements HasMedia
         'rating',
         'policies',
         'location',
-        'contact_info'
-    ];
-    protected $cast = [
-        'amenities',
-        'policies',
         'contact_info',
+        'category_id',
+    ];
+
+    protected $hidden = ['location'];
+    
+    protected $casts = [
+        'amenities'    => 'array',
+        'policies'     => 'array',
+        'contact_info' => 'array',
     ];
 
     /**
      * Register media collections.
      */
-    protected array $mediaCollections = [
+    /*protected array $mediaCollections = [
         'hotel_image' => ['single' => true, 'disk' => 'public'],
         'hotel_gallery' => ['single' => false, 'disk' => 'public', 'limit' => 12],
-    ];
+    ];*/
 
     /**
      * Register conversions (thumbnails, responsive sizes).
      * تقدر تعدل القياسات حسب احتياج الواجهة.
      */
-    protected array $mediaConversions = [
+    /*protected array $mediaConversions = [
         [
             'name' => 'thumb_webp',
             'width' => 400,
@@ -67,7 +71,7 @@ class Hotel extends Model implements HasMedia
             'collections' => ['hotel_image', 'hotel_gallery'],
             'queued' => false,
         ],
-    ];
+    ];*/
     public function rooms()
     {
         return $this->hasMany(Room::class);
@@ -89,6 +93,11 @@ class Hotel extends Model implements HasMedia
     {
         $result = DB::selectOne('SELECT ST_Y(location) as lng FROM hotels WHERE id = ?', [$this->id]);
         return $result?->lng;
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 
 }

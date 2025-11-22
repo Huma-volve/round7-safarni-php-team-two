@@ -119,7 +119,7 @@ trait AddMedia
      * @param int $mediaId
      * @return bool
      */
-    public function deleteMedia(int $mediaId): bool
+    /*public function deleteMedia(int $mediaId): bool
     {
         if (method_exists($this, 'removeMediaById')) {
             return $this->removeMediaById($mediaId);
@@ -131,5 +131,5 @@ trait AddMedia
         }
 
         return (bool) $media->delete();
-    }
+    }*/
 }
