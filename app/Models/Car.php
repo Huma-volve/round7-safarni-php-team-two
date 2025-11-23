@@ -10,10 +10,12 @@ class Car extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'brand',
         'model',
         'price',
         'rating',
         'image',
+        'number_of_seats',
         'category_id',
         'city',
         'location'
@@ -36,5 +38,10 @@ public function getLngAttribute()
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function carRentals()
+    {
+        return $this->hasMany(CarRental::class);
     }
 }

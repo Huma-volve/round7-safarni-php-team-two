@@ -16,7 +16,7 @@ class CategorySeeder extends Seeder
         $categories=[
             'flights',
             'hotels',
-            'car_rentals',
+            'cars',
             'tours',
         ];
 

@@ -29,6 +29,7 @@ class CarFactory extends Factory
             'category_id' =>Category::where('name', 'car_rentals')->first()->id,
             'city' => $this->faker->city,
             'location' => DB::raw("ST_PointFromText('POINT($lat $lng)')"),
+            'number_of_seats' => $this->faker->numberBetween(2, 8),
         ];
     }
 }
