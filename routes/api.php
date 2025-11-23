@@ -1,11 +1,13 @@
 <?php
 
-
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Flight\AirportController;
 use App\Http\Controllers\Flight\CarrierController;
 use App\Http\Controllers\Flight\FlightController;
+use App\Http\Controllers\CarsController;
+use App\Http\Controllers\CarRentalController;
 
 use App\Http\Controllers\HotelBookingController;
 
@@ -16,6 +18,7 @@ use App\Http\Controllers\RoomController;
 use App\Models\Booking;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
 
 use App\Http\Controllers\RouteMessage;
 Route::get('/user', function (Request $request) {
@@ -61,10 +64,25 @@ Route::middleware('auth:sanctum')->group(function () {
 
 Route::middleware('auth:sanctum')->group(function () {
 
+    //Home
+    Route::get('/home',[HomeController::class,'index']);
 
+    //Search Suggestions
+    Route::get('/search-suggestions',[HomeController::class,'suggestions']);
+    //Search Results
+    Route::get('/search',[HomeController::class,'search']);
 
+    //Cars Brands
+    Route::get('/brands', [CarsController::class, 'brands']);
+    //cars of a brand
+    Route::get('/cars/{brand}', [CarsController::class, 'carsOfBrand']);
+    //Popular Cars
+    Route::get('/popularCars', [CarsController::class, 'popularCars']);
+    //Single Car
+    Route::get('cars/{id}', [CarsController::class, 'show']);
+    //rent a car
+    Route::post('cars/{id}/rent', [CarRentalController::class, 'rentCar']);
     /*Hotels*/
-
 
     Route::get('hotels', [HotelController::class, 'index']);/*✅ all  hotels*/
 

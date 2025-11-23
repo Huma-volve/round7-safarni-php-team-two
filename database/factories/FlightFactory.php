@@ -6,6 +6,7 @@ use App\Models\Flight;
 use App\Models\Airport; // عشان نجيب مطارات عشوائية
 use App\Models\Carrier; // عشان نجيب شركات طيران عشوائية
 use App\Enums\FlightStatus; // عشان نستخدم الـ Enum اللي عملناه
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class FlightFactory extends Factory
@@ -46,6 +47,8 @@ class FlightFactory extends Factory
 
             // حساب المدة (Duration) ممكن يكون String يوضح المدة، أو يتم حسابه لاحقاً
             'duration' => $departureTime->diff($arrivalTime)->format('%h hours %i minutes'),
+
+            'category_id'=>Category::where('name','flights')->first()->id,
         ];
     }
 }

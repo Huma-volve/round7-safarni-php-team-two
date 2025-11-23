@@ -27,4 +27,8 @@ class Flight extends Model
         return $this->belongsTo(Carrier::class,'carrier_id');
     }
 
+    public function category(){
+        return $this->belongsTo(Category::class,'category_id');
+    }
+
 }

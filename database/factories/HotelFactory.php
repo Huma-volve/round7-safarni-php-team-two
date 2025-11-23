@@ -5,6 +5,7 @@ use App\Models\Hotel;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use App\Models\Category;
 
 class HotelFactory extends Factory
 {
@@ -27,6 +28,7 @@ class HotelFactory extends Factory
             'image' => $this->faker->imageUrl(800, 600, 'city'),
             'amenities' => json_encode(['wifi','parking','pool']),
             'rating' => $this->faker->randomFloat(2, 3, 5),
+            'category_id'=>Category::where('name','hotels')->first()->id,
             'policies' => json_encode([
                 'check_in' => '14:00',
                 'check_out' => '12:00',
@@ -36,22 +38,24 @@ class HotelFactory extends Factory
                 'phone' => $this->faker->phoneNumber,
                 'email' => $this->faker->companyEmail
             ]),
+            'city' => $this->faker->city,
+            'location' => DB::raw("ST_PointFromText('POINT($lat $lng)')"),
         ];
     }
 
     // بعد الإنشاء مباشرة، نحدث عمود location
-    public function configure()
+    /*public function configure()
     {
         return $this->afterCreating(function (Hotel $hotel) {
             $lat = $hotel->latitude;
             $lng = $hotel->longitude;
             $hotel->update([
-                'location' => DB::raw("POINT($lng, $lat)")
+                'location' => DB::raw("POINT($lat, $lng)")
             ]);
         });
-    }
+    }*/
 }
 
 
 
- 
+
