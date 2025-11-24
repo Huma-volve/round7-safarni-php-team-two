@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Car;
 
+
 class CarsController extends Controller
 {
     public function brands()
@@ -25,9 +26,9 @@ class CarsController extends Controller
         return response()->json($popular_cars);
     }
 
-    public function show($id)
+    public function show(Car $car)
     {
-        $car = Car::findOrFail($id);
+        $car->reviews;
         return response()->json($car);
     }
 }

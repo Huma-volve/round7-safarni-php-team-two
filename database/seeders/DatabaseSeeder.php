@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
         UsersSeeder::class,
         TourSeeder::class,
         CarSeeder::class,
+        ReviewsSeeder::class,
        ]);
     }
 }

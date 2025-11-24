@@ -75,11 +75,11 @@ Route::middleware('auth:sanctum')->group(function () {
     //Cars Brands
     Route::get('/brands', [CarsController::class, 'brands']);
     //cars of a brand
-    Route::get('/cars/{brand}', [CarsController::class, 'carsOfBrand']);
+    Route::get('brand/{brand}/cars', [CarsController::class, 'carsOfBrand']);
     //Popular Cars
     Route::get('/popularCars', [CarsController::class, 'popularCars']);
     //Single Car
-    Route::get('cars/{id}', [CarsController::class, 'show']);
+    Route::get('cars/{car}', [CarsController::class, 'show']);
     //rent a car
     Route::post('cars/{id}/rent', [CarRentalController::class, 'rentCar']);
     /*Hotels*/
