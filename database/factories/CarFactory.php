@@ -26,7 +26,7 @@ class CarFactory extends Factory
             'price' => $this->faker->numberBetween(5000, 100000),
             'rating' => $this->faker->randomFloat(1, 1, 5),
             'image' => $this->faker->imageUrl(640, 480, 'cars', true),
-            'category_id' =>Category::where('name', 'car_rentals')->first()->id,
+            'category_id' =>Category::where('name', 'cars')->first()->id,
             'city' => $this->faker->city,
             'location' => DB::raw("ST_PointFromText('POINT($lat $lng)')"),
             'number_of_seats' => $this->faker->numberBetween(2, 8),
