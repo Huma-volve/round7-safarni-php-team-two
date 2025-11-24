@@ -17,15 +17,15 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
 
             // Polymorphic
-            $table->morphs('reviewable'); 
+            $table->morphs('reviewable');
         // reviewable_id + reviewable_type
 
-            $table->tinyInteger('rating'); 
+            $table->tinyInteger('rating');
             $table->string('title')->nullable();
-            $table->text('body');
+            $table->text('body')->nullable();
             $table->json('photos')->nullable();
 
-        
+
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('approved');
 
             $table->timestamps();

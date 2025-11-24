@@ -44,4 +44,9 @@ public function getLngAttribute()
     {
         return $this->hasMany(CarRental::class);
     }
+
+    public function reviews()
+    {
+        return $this->morphMany(Review::class, 'reviewable')->where('status', 'approved');
+    }
 }
