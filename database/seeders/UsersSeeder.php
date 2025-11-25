@@ -15,7 +15,6 @@ class UsersSeeder extends Seeder
         $faker = Faker::create();
 
         // إنشاء الدور admin و user لو مش موجودين
-        $adminRole = Role::firstOrCreate(['name' => 'admin']);
         $userRole = Role::firstOrCreate(['name' => 'user']);
 
         // إنشاء مستخدم admin ثابت
@@ -28,7 +27,7 @@ class UsersSeeder extends Seeder
                 'password' => Hash::make('password123'),
             ]
         );
-        $admin->assignRole($adminRole);
+        // $admin->assignRole($adminRole);
 
         // إنشاء 19 مستخدم عادي
         for ($i = 1; $i <= 19; $i++) {
