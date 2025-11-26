@@ -36,8 +36,7 @@ class CarRental extends Model
         'payment_status',
         'payment_method',
 
-        // Payment transaction
-        'transaction_id',
+        'payment_time',
     ];
 
     public function car(){
