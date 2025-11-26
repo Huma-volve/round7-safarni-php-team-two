@@ -46,7 +46,7 @@ class StoreCarRentalRequest extends FormRequest
             // Status
             'status'          => 'nullable|in:pending,confirmed,in_progress,completed,canceled',
             'payment_status'  => 'nullable|in:pending,paid,canceled,refunded',
-            'payment_method'  => 'nullable|in:paypal,mastercard,visa,cash',
+            'payment_method'  => 'nullable|in:paypal,mastercard,visa,cash,stripe',
 
             // Transaction
             'transaction_id'  => 'nullable|string|max:255',
