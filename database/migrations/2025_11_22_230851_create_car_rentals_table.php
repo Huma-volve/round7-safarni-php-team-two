@@ -40,9 +40,9 @@ return new class extends Migration
             // Statuses
             $table->enum('status', ['pending', 'confirmed', 'in_progress', 'completed', 'canceled'])->default('pending');
             $table->enum('payment_status', ['pending', 'paid', 'canceled', 'refunded'])->default('pending');
-            $table->enum('payment_method', ['paypal','mastercard','visa','cash'])->nullable();
+            $table->enum('payment_method', ['paypal','mastercard','visa','cash','stripe'])->nullable();
 
-            $table->string('transaction_id')->nullable();
+            $table->timestamp('payment_time')->nullable();
 
             $table->timestamps();
         });

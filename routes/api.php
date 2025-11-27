@@ -82,6 +82,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('cars/{car}', [CarsController::class, 'show']);
     //rent a car
     Route::post('cars/{id}/rent', [CarRentalController::class, 'rentCar']);
+    //pay for renting a car
+    Route::post('cars/rentals/{id}/checkout', [CarRentalController::class, 'checkout']);
+
     /*Hotels*/
 
     Route::get('hotels', [HotelController::class, 'index']);/*✅ all  hotels*/
@@ -146,6 +149,9 @@ Route::post('/reviews', [ReviewController::class, 'store']);
 
 
 Route::get('/payment/success/{booking}', [PaymentController::class, 'success'])->name('payment.success');
+
+//confirm payment for renting a car
+Route::post('/stripe/webhook', [CarRentalController::class, 'handleWebhook']);
 
 
 

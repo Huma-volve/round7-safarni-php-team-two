@@ -31,3 +31,6 @@ Route::get('/cancel', fn() => 'Payment canceled.')->name('stripe.cancel');
         Route::post('updategetpermissions/{id}', [RoleController::class, 'updategetpermissions'])->name('updategetpermissions');
         //roles
 });
+
+Route::get('/success', fn() => 'Payment successful!')->name('stripe.success');
+Route::get('/cancel', fn() => 'Payment canceled.')->name('stripe.cancel');
