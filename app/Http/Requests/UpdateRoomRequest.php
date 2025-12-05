@@ -21,17 +21,17 @@ class UpdateRoomRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'name' => 'sometimes|string|max:255',
-            'description' => 'sometimes|string',
-            'photos' => 'sometimes|array',
-            'photos.*' => 'url',
-            'main_image' => 'sometimes|url',
-            'bed_number' => 'nullable|integer',
-            'room_area' => 'sometimes|numeric|min:0',
-            'price_per_night' => 'sometimes|numeric|min:0',
-            'availability_calendar' => 'sometimes|array',
+return [
+    'name' => 'sometimes|string|max:255',
+    'description' => 'sometimes|string',
+    'photos' => 'sometimes|array',
+    'photos.*' => 'file|image|mimes:jpg,jpeg,png,gif|max:5120', // ملف صورة max 5MB
+    'main_image' => 'sometimes|file|image|mimes:jpg,jpeg,png,gif|max:5120',
+    'bed_number' => 'nullable|integer',
+    'room_area' => 'sometimes|numeric|min:0',
+    'price_per_night' => 'sometimes|numeric|min:0',
+    'availability_calendar' => 'sometimes',
+];
 
-        ];
     }
 }

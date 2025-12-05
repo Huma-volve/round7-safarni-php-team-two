@@ -31,10 +31,11 @@ class HotelResource extends JsonResource
             'contact_info' => $this->contact_info ? json_decode($this->contact_info) : [],
 
             'rooms' => RoomResource::collection($this->whenLoaded('rooms')),
-            'media' => [
-                'main' => $this->mainMediaUrl('hotel_image', 'thumb_webp'),
-                'gallery' => $this->mediaCollectionData('hotel_gallery', 'thumb_webp'),
-            ],
+'media' => [
+    'main' => $this->getFirstMediaUrl('hotel_image'), // بدون conversion إذا مش موجود
+    'gallery' => $this->getMedia('hotel_gallery')->map(fn($media) => $media->getUrl()),
+],
+
         ];
     }
 }

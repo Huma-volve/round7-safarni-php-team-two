@@ -47,6 +47,50 @@ return [
 
         ],
     ],
+    [
+    'route' => 'hotels',
+        'label' => 'hotels',
+        'icon' => 'ri ri-user-3-line',
+        'permission' => 'view-admins',
+        'children' => [
+            [
+                'route' => 'hotels.create',
+                'label' => 'create hotels',
+                // 'permission' => 'view-admins',
+                'icon' => 'ri ri-user-3-line',
+
+            ],
+            [
+                'route' => 'hotels.index',
+                'label' => 'hotels',
+                // 'permission' => 'view-admins',
+                'icon' => 'ri ri-user-3-line',
+                // 'parameters' => ['hotel' => $hotel->id],
+
+            ],
+       
+
+        ],
+    ],
+    // [
+    // 'route' => 'hotels.rooms',
+    //     'label' => 'Rooms',
+    //     'icon' => 'ri ri-user-3-line',
+    //     'permission' => 'view-admins',
+    //     'children' => [
+      
+    //         [
+    //             'route' => 'hotels.rooms.index',
+    //             'label' => 'rooms',
+    //             // 'permission' => 'view-admins',
+    //             'parameters' => ['hotel' => $hotel->id],
+    //             'icon' => 'ri ri-user-3-line',
+
+    //         ],
+       
+
+    //     ],
+    // ],
 
     // [
     //     'route' => 'bookings.index',

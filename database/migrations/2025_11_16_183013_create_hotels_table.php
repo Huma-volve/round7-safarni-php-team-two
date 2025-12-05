@@ -20,20 +20,20 @@ return new class extends Migration
 
             // Location
             $table->string('address')->nullable();
-            $table->decimal('latitude', 10, 7)->nullable();
-            $table->decimal('longitude', 10, 7)->nullable();
+            // $table->decimal('latitude', 10, 7)->nullable();
+            // $table->decimal('longitude', 10, 7)->nullable();
 
             
             $table->string('image')->nullable();
 
             
-            $table->json('amenities')->nullable();
 
 
             $table->decimal('rating', 3, 2)->default(0); // 4.75 مثلا
 
             //  (check-in/out, cancellation)
             $table->json('policies')->nullable();
+            $table->json('amenities')->nullable();
 
             
             $table->json('contact_info')->nullable();

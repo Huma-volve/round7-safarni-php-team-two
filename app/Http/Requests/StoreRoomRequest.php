@@ -19,19 +19,19 @@ class StoreRoomRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
-    {
-        return [
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'photos' => 'nullable|array',
-            'photos.*' => 'url',
-            'main_image' => 'nullable|url',
-            'bed_number' => 'nullable|integer',
-            'room_area' => 'nullable|numeric|min:0',
-            'price_per_night' => 'required|numeric|min:0',
-            'availability_calendar' => 'nullable|array',
-         
-        ];
-    }
+public function rules(): array
+{
+    return [
+        'name' => 'required|string|max:255',
+        'description' => 'nullable|string',
+        'photos' => 'nullable',
+        'photos.*' => 'file|mimes:jpg,jpeg,png,webp|max:5120', // 5MB max
+        'main_image' => 'nullable|file|mimes:jpg,jpeg,png,webp|max:5120',
+        'bed_number' => 'nullable|integer',
+        'room_area' => 'nullable|numeric|min:0',
+        'price_per_night' => 'required|numeric|min:0',
+        'availability_calendar' => 'nullable|array',
+    ];
+}
+
 }

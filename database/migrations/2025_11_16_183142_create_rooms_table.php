@@ -17,8 +17,6 @@ return new class extends Migration
             $table->foreignId('hotel_id')->constrained()->onDelete('cascade');
             $table->string('name');
             $table->text('description')->nullable();
-            $table->json('photos')->nullable();
-            $table->string('main_image')->nullable();
             $table->integer('bed_number')->nullable();
             $table->integer('room_area')->nullable();  
             $table->decimal('price_per_night', 10, 2);        

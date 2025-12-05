@@ -9,6 +9,7 @@ class HotelService
 {
     public function create(array $data): Hotel
     {
+        $data['category_id']=2;
         return Hotel::create($data);
     }
 

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\HotelAdminController;
+use App\Http\Controllers\RoomAdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\AuthController;
@@ -30,7 +32,18 @@ Route::get('/cancel', fn() => 'Payment canceled.')->name('stripe.cancel');
         Route::get('getpermissions/{id}',[RoleController::class, 'getpermissions'])->name('getpermissions');
         Route::post('updategetpermissions/{id}', [RoleController::class, 'updategetpermissions'])->name('updategetpermissions');
         //roles
+        Route::resource('hotels',HotelAdminController::class);
+   Route::resource('hotels.rooms', RoomAdminController::class);
+
 });
 
 Route::get('/success', fn() => 'Payment successful!')->name('stripe.success');
 Route::get('/cancel', fn() => 'Payment canceled.')->name('stripe.cancel');
+
+
+
+
+
+
+
+

@@ -23,21 +23,23 @@ class HotelFactory extends Factory
             'slug' => Str::slug($name) . '-' . $this->faker->randomNumber(5, true),
             'description' => $this->faker->paragraph,
             'address' => $this->faker->address,
-            'latitude' => $lat,
-            'longitude' => $lng,
-            'image' => $this->faker->imageUrl(800, 600, 'city'),
-            'amenities' => json_encode(['wifi','parking','pool']),
+            // 'latitude' => $lat,
+            // 'longitude' => $lng,
+            // 'hotel_image' => $this->faker->imageUrl(800, 600, 'city'),
+            // 'hotel_gallery' => [$this->faker->imageUrl(), $this->faker->imageUrl()],
+                  'amenities' => ['wifi','parking','pool'],
+
             'rating' => $this->faker->randomFloat(2, 3, 5),
             'category_id'=>Category::where('name','hotels')->first()->id,
-            'policies' => json_encode([
-                'check_in' => '14:00',
-                'check_out' => '12:00',
-                'cancellation' => 'Free cancellation within 24h'
-            ]),
-            'contact_info' => json_encode([
-                'phone' => $this->faker->phoneNumber,
-                'email' => $this->faker->companyEmail
-            ]),
+                'policies' => [
+            'check_in' => '14:00',
+            'check_out' => '12:00',
+            'cancellation' => 'Free cancellation within 24h'
+        ],
+        'contact_info' => [
+            'phone' => $this->faker->phoneNumber,
+            'email' => $this->faker->companyEmail
+        ],
             'city' => $this->faker->city,
             'location' => DB::raw("ST_PointFromText('POINT($lat $lng)')"),
         ];

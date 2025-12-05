@@ -4,16 +4,23 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-class Room extends Model
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+class Room extends Model  implements HasMedia
 {
    use HasFactory;
     
+     use InteractsWithMedia;
+
+public function registerMediaCollections(): void
+{
+    $this->addMediaCollection('main_image')->singleFile();
+    $this->addMediaCollection('photos');
+}
  protected $fillable = [
         'hotel_id',
         'name',
         'description',
-        'main_image',
-        'photos',
         'capacity',  
         'room_area',
         'price_per_night',
@@ -22,7 +29,6 @@ class Room extends Model
     ];
 
     protected $casts = [
-           'photos' => 'array',
     'availability_calendar' => 'array',
         'offer' => 'array',  
         'capacity' => 'integer',
